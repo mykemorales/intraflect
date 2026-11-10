@@ -124,6 +124,14 @@ h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
   content: ""; position: absolute; top: 11px; left: 50%; width: 88px; height: 25px;
   transform: translateX(-50%); background: #0E0D0C; border-radius: 99px;
 }
+/* Hero: real screenshot inside the phone frame */
+.phone-shot { width: 320px; aspect-ratio: auto; position: relative; }
+.phone-shot picture, .phone-shot img { display: block; width: 100%; height: auto; }
+.phone-shot img { border-radius: 39px; aspect-ratio: 1179 / 2556; background: #FBFBFB; }
+.phone-shot::after { /* dynamic island */
+  content: ""; position: absolute; top: 18px; left: 50%; width: 29%; height: 26px;
+  transform: translateX(-50%); background: #0E0D0C; border-radius: 99px;
+}
 .s-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
 .s-close { width: 28px; height: 28px; border-radius: 99px; background: var(--screen-soft); display: grid; place-items: center; }
 .s-label { font-size: 12px; line-height: 16px; color: var(--muted); }
@@ -316,19 +324,12 @@ footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
       </div>
 
       <div class="hero-visual">
-        <!-- Screen: Today / Home -->
-        <div class="phone" role="img" aria-label="The Today screen: yesterday's photo, yesterday's question, and a button to start today's check-in.">
-          <div class="screen">
-            <div class="s-top"><span>Tuesday, 10 November</span></div>
-            <div class="s-stack" style="margin-top:14px">
-              <div class="s-photo"><div class="head"></div><div class="shoulders"></div><span class="tag">You, yesterday</span></div>
-              <div class="s-stack" style="gap:6px">
-                <span class="s-label s-blue">Yesterday's question</span>
-                <p class="s-prompt">What would you say to her if the deadline weren't there?</p>
-              </div>
-            </div>
-            <div class="s-btn">Start today's check-in</div>
-          </div>
+        <!-- Screen: Today / Home (real app screen, rendered at 3x) -->
+        <div class="phone phone-shot">
+          <picture>
+            <source srcset="assets/today-screen.webp" type="image/webp">
+            <img src="assets/today-screen.png" width="1179" height="2556" alt="The Intraflect Today screen: today's check-in photo, a short reflection on what was said, and one question carried into tomorrow." fetchpriority="high" decoding="async">
+          </picture>
         </div>
       </div>
     </div>
