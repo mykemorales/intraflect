@@ -11,7 +11,8 @@
 <meta property="og:url" content="https://intraflect.app/">
 <meta name="theme-color" content="#FBFBFB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#252322" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23252322'/%3E%3Ccircle cx='12' cy='9.5' r='2.5' fill='%23F1EED6'/%3E%3Crect x='9.5' y='13.5' width='5' height='10' rx='2.5' fill='%23F1EED6'/%3E%3Crect x='17.5' y='7' width='5' height='18' rx='2.5' fill='%23F1EED6'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="assets/brand/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
@@ -72,8 +73,11 @@ h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
 /* ---------- Nav ---------- */
 .nav { padding-block: 20px; padding-top: max(20px, env(safe-area-inset-top, 0px)); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 19px; letter-spacing: -0.3px; }
+.brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 19px; letter-spacing: -0.3px; }
 .brand svg { display: block; }
+.wordmark { display: block; width: 128px; height: 22.5px; background: currentColor;
+  -webkit-mask: url("assets/brand/wordmark.png") center / contain no-repeat;
+          mask: url("assets/brand/wordmark.png") center / contain no-repeat; }
 .nav-links { display: flex; align-items: center; gap: 24px; font-size: 15px; }
 .nav-links a { text-decoration: none; color: var(--muted); }
 .nav-links a:hover { color: var(--ink); }
@@ -290,12 +294,10 @@ footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Intraflect home">
-      <svg width="22" height="30" viewBox="0 0 22 30" aria-hidden="true">
-        <circle class="m1" cx="4.5" cy="4.5" r="4.5" fill="currentColor"/>
-        <rect class="m2" x="0" y="11" width="9" height="17" rx="4.5" fill="currentColor"/>
-        <rect class="m3" x="13" y="0" width="9" height="30" rx="4.5" fill="currentColor"/>
+      <svg width="21" height="30" viewBox="0 0 30 42.8" aria-hidden="true">
+        <circle class="m1" cx="5" cy="9.64" r="5" fill="currentColor"/><rect class="m2" x="0" y="18.1" width="10" height="20" rx="5" fill="currentColor"/><rect class="m3" x="20" y="0" width="10" height="42.8" rx="5" fill="currentColor"/>
       </svg>
-      intraflect
+      <span class="wordmark" aria-hidden="true"></span>
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
@@ -504,7 +506,7 @@ footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
   <!-- FINAL CTA -->
   <section class="final" id="beta" aria-labelledby="final-title">
     <div class="wrap">
-      <svg width="26" height="36" viewBox="0 0 22 30" aria-hidden="true"><circle cx="4.5" cy="4.5" r="4.5" fill="currentColor"/><rect x="0" y="11" width="9" height="17" rx="4.5" fill="currentColor"/><rect x="13" y="0" width="9" height="30" rx="4.5" fill="currentColor"/></svg>
+      <svg width="25" height="36" viewBox="0 0 30 42.8" aria-hidden="true"><circle cx="5" cy="9.64" r="5" fill="currentColor"/><rect x="0" y="18.1" width="10" height="20" rx="5" fill="currentColor"/><rect x="20" y="0" width="10" height="42.8" rx="5" fill="currentColor"/></svg>
       <h2 id="final-title">Start hearing yourself this winter.</h2>
       <p class="js-final-copy">We're inviting a small group to try Intraflect for two weeks from late December. It's free, on iPhone, and your honest feedback shapes what it becomes.</p>
       <div class="cta-row">
