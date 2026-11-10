@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intraflect · A daily encounter with yourself</title>
+<meta name="description" content="Intraflect is a private, audio-first reflection app. Speak for a few minutes, get a short reflection and one question for tomorrow, and see how you change over time.">
+<meta property="og:title" content="Intraflect · A daily encounter with yourself">
+<meta property="og:description" content="A few minutes to hear yourself, understand where you are, and recognise how you're changing over time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://intraflect.app/">
+<meta name="theme-color" content="#FBFBFB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#252322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23252322'/%3E%3Ccircle cx='12' cy='9.5' r='2.5' fill='%23F1EED6'/%3E%3Crect x='9.5' y='13.5' width='5' height='10' rx='2.5' fill='%23F1EED6'/%3E%3Crect x='17.5' y='7' width='5' height='18' rx='2.5' fill='%23F1EED6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+<style>
+/* ------------------------------------------------------------------
+   Intraflect design foundations, as built in the app.
+   Neutrals carry everything. Four accents, one meaning each:
+   orange = mic is live · blue = the question for tomorrow
+   lime = something that recurred · green = saved and private
+------------------------------------------------------------------- */
+
+:root {
+  --paper: #FBFBFB;
+  --ink: #252322;
+  --cream: #F1EED6;
+  --sand: #DBD5B2;
+  --muted: #6E6A66;
+  --hair: #E7E4DF;
+  --soft: #F1EFEB;
+  --screen: #FBFBFB;
+  --screen-ink: #252322;
+  --screen-soft: #EFEDE8;
+  --frame: #252322;
+  --orange: #E58237;
+  --blue: #455DE8;
+  --blue-soft: #E8EBFC;
+  --lime: #E8F55A;
+  --green: #399A26;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #252322; --ink: #F1EED6; --muted: #B4AF98; --hair: #3A3734; --soft: #2E2B29;
+    --screen: #1C1A19; --screen-ink: #F1EED6; --screen-soft: #2C2927; --frame: #3E3A37;
+    --blue: #7D8EF2; --blue-soft: #2C3060; --green: #5CC046;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font); font-size: 17px; line-height: 25px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Nav ---------- */
+.nav { padding-block: 20px; padding-top: max(20px, env(safe-area-inset-top, 0px)); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 19px; letter-spacing: -0.3px; }
+.brand svg { display: block; }
+.nav-links { display: flex; align-items: center; gap: 24px; font-size: 15px; }
+.nav-links a { text-decoration: none; color: var(--muted); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.btn-primary, .nav-links a.btn-primary:hover { color: var(--paper); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 26px; border-radius: 999px;
+  font: 500 17px/1 var(--font); text-decoration: none; cursor: pointer; border: 0;
+  transition: transform 160ms var(--ease-out), background-color 200ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--hair); }
+.btn-small { min-height: 40px; padding: 0 18px; font-size: 15px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+}
+
+/* ---------- Hero ---------- */
+.hero { padding-block: 40px 96px; }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+.hero-copy { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.eyebrow { font-size: 15px; line-height: 22px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.eyebrow .pill { width: 22px; height: 8px; border-radius: 99px; background: var(--ink); }
+.hero h1 { font-size: clamp(44px, 6.4vw, 76px); line-height: 1.02; letter-spacing: -0.04em; }
+.hero .lede { font-size: 21px; line-height: 31px; color: var(--muted); max-width: 30ch; }
+.hero .lede strong { color: var(--ink); font-weight: 500; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding-top: 8px; }
+.cta-note { font-size: 13px; line-height: 18px; color: var(--muted); }
+.hero-visual { display: flex; justify-content: center; min-width: 0; }
+
+/* ---------- Phone mockups ---------- */
+.phone {
+  width: 300px; max-width: 100%; aspect-ratio: 300 / 620;
+  background: var(--frame); border-radius: 48px; padding: 10px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 30px 60px -30px rgba(37,35,34,0.35);
+  flex-shrink: 0;
+}
+.screen {
+  height: 100%; background: var(--screen); color: var(--screen-ink);
+  border-radius: 39px; overflow: hidden; position: relative;
+  display: flex; flex-direction: column; padding: 46px 20px 22px;
+  font-size: 13px; line-height: 18px;
+}
+.screen::before { /* dynamic island */
+  content: ""; position: absolute; top: 11px; left: 50%; width: 88px; height: 25px;
+  transform: translateX(-50%); background: #0E0D0C; border-radius: 99px;
+}
+.s-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
+.s-close { width: 28px; height: 28px; border-radius: 99px; background: var(--screen-soft); display: grid; place-items: center; }
+.s-label { font-size: 12px; line-height: 16px; color: var(--muted); }
+.s-blue { color: var(--blue); font-weight: 500; }
+.s-prompt { font-size: 21px; line-height: 27px; font-weight: 500; letter-spacing: -0.3px; }
+.s-photo {
+  border-radius: 20px; aspect-ratio: 4 / 5; position: relative; overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 50% 42%, rgba(241,238,214,0.95), rgba(241,238,214,0) 70%),
+    radial-gradient(80% 60% at 50% 100%, #8E8A84, rgba(142,138,132,0) 70%),
+    linear-gradient(160deg, #C9C3AC, #77726B);
+}
+.s-photo .head { position: absolute; left: 50%; top: 28%; width: 34%; aspect-ratio: 1 / 1.15; border-radius: 50%; background: #5B5753; transform: translateX(-50%); opacity: 0.85; }
+.s-photo .shoulders { position: absolute; left: 50%; bottom: -12%; width: 82%; aspect-ratio: 1.6 / 1; border-radius: 50% 50% 0 0; background: #4A4643; transform: translateX(-50%); opacity: 0.9; }
+.s-photo .tag { position: absolute; left: 12px; bottom: 12px; background: rgba(37,35,34,0.6); color: #F1EED6; font-size: 11px; padding: 4px 10px; border-radius: 99px; backdrop-filter: blur(6px); }
+.s-btn { margin-top: auto; background: var(--screen-ink); color: var(--screen); border-radius: 99px; height: 46px; display: grid; place-items: center; font-weight: 500; font-size: 15px; }
+.s-stack { display: flex; flex-direction: column; gap: 14px; }
+.s-card { background: var(--screen-soft); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.s-qcard { background: var(--blue-soft); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.s-qcard p { font-size: 15px; line-height: 21px; font-weight: 500; }
+
+/* recording */
+.rec-head { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.rec-dot { width: 9px; height: 9px; border-radius: 99px; background: var(--orange); }
+.rec-time { font-weight: 300; font-size: 56px; line-height: 1; letter-spacing: -2px; text-align: center; font-variant-numeric: tabular-nums; margin-top: 36px; }
+.meter { display: flex; align-items: center; justify-content: center; gap: 5px; height: 90px; margin-top: 28px; }
+.meter i { display: block; width: 7px; border-radius: 99px; background: var(--screen-ink); height: calc(var(--h) * 1px); transform-origin: center; }
+.rec-prompt { text-align: center; color: var(--muted); font-size: 14px; line-height: 20px; margin-top: 28px; padding: 0 8px; }
+.rec-controls { margin-top: auto; display: flex; justify-content: center; align-items: center; gap: 28px; }
+.rec-ctrl { width: 46px; height: 46px; border-radius: 99px; background: var(--screen-soft); display: grid; place-items: center; }
+.rec-finish { width: 72px; height: 72px; border-radius: 99px; background: var(--screen-ink); display: grid; place-items: center; }
+.rec-finish span { width: 22px; height: 22px; border-radius: 6px; background: var(--screen); }
+
+/* journey */
+.j-title { font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: -0.5px; }
+.j-week { display: flex; flex-direction: column; gap: 8px; background: var(--screen-soft); border-radius: 18px; padding: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--lime); color: #252322; border-radius: 99px; padding: 3px 10px; font-size: 12px; font-weight: 500; }
+.j-row { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--hair); }
+.j-thumb { width: 40px; height: 48px; border-radius: 10px; flex-shrink: 0; background: linear-gradient(160deg, #C9C3AC, #77726B); }
+.j-thumb.b { background: linear-gradient(160deg, #B9B4A2, #5F5B56); }
+.j-thumb.c { background: linear-gradient(160deg, #D6D0B8, #8A857E); }
+.j-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.j-text b { font-weight: 500; font-size: 13px; }
+.j-text span { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tabbar { margin-top: auto; display: flex; justify-content: space-around; padding-top: 12px; border-top: 1px solid var(--hair); font-size: 11px; color: var(--muted); }
+.tabbar .on { color: var(--screen-ink); font-weight: 500; }
+
+/* ---------- Sections ---------- */
+section { padding-block: 96px; }
+.section-head { display: flex; flex-direction: column; gap: 16px; max-width: 640px; margin-bottom: 56px; }
+.section-head h2 { font-size: clamp(32px, 4.2vw, 46px); line-height: 1.08; letter-spacing: -0.03em; }
+.section-head p { font-size: 19px; line-height: 29px; color: var(--muted); }
+
+/* problem / promise */
+.promise { border-top: 1px solid var(--hair); }
+.promise .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.promise h2 { font-size: clamp(30px, 3.8vw, 42px); line-height: 1.1; letter-spacing: -0.03em; }
+.promise-body { display: flex; flex-direction: column; gap: 18px; font-size: 19px; line-height: 29px; color: var(--muted); max-width: 52ch; }
+.promise-body strong { color: var(--ink); font-weight: 500; }
+
+/* how it works */
+.how { background: var(--soft); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.step { display: flex; flex-direction: column; gap: 28px; align-items: center; min-width: 0; }
+.step .phone { width: 260px; }
+.step-copy { display: flex; flex-direction: column; gap: 8px; max-width: 32ch; align-self: stretch; }
+.step-num { display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 18px; color: var(--muted); font-weight: 500; }
+.step-num .bar { display: flex; gap: 4px; }
+.step-num .bar i { display: block; width: 14px; height: 6px; border-radius: 99px; background: var(--hair); }
+.step-num .bar i.on { background: var(--ink); }
+.step h3 { font-size: 24px; line-height: 30px; letter-spacing: -0.4px; }
+.step p { color: var(--muted); }
+
+/* who it's for */
+.for-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.for-card { border: 1px solid var(--hair); border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.for-card h3 { font-size: 19px; line-height: 26px; letter-spacing: -0.2px; }
+.for-card p { color: var(--muted); font-size: 16px; line-height: 24px; }
+.quote { font-size: 15px; line-height: 22px; color: var(--ink); font-style: italic; }
+
+/* principles */
+.principles .wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
+.not-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.not-list li { display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--hair); }
+.not-list li:first-child { border-top: 1px solid var(--hair); }
+.not-list b { font-weight: 500; text-decoration: line-through; text-decoration-color: var(--muted); text-decoration-thickness: 1.5px; color: var(--muted); }
+.not-list span { color: var(--ink); }
+
+/* privacy */
+.privacy-band { background: var(--ink); color: var(--paper); border-radius: 32px; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+@media (prefers-color-scheme: dark) { .privacy-band { background: var(--soft); color: var(--ink); } }
+.privacy-band h2 { font-size: clamp(30px, 3.8vw, 42px); line-height: 1.1; letter-spacing: -0.03em; }
+.saved { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; line-height: 18px; font-weight: 500; color: #8AD177; margin-bottom: 16px; }
+@media (prefers-color-scheme: dark) { .saved { color: var(--green); } }
+.privacy-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.privacy-list li { display: flex; gap: 14px; }
+.privacy-list li::before { content: ""; flex-shrink: 0; width: 6px; height: 18px; border-radius: 99px; background: currentColor; opacity: 0.35; margin-top: 4px; }
+.privacy-list a { text-underline-offset: 3px; }
+
+/* final cta */
+.final { text-align: center; padding-block: 120px; }
+.final .wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.final h2 { font-size: clamp(36px, 5vw, 58px); line-height: 1.04; letter-spacing: -0.04em; max-width: 16ch; }
+.final p { font-size: 19px; line-height: 29px; color: var(--muted); max-width: 44ch; }
+.final .cta-row { justify-content: center; }
+
+/* footer */
+footer { border-top: 1px solid var(--hair); padding-block: 32px; padding-bottom: max(32px, env(safe-area-inset-bottom, 0px)); font-size: 13px; line-height: 18px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- Motion ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes assemble { from { opacity: 0; transform: translateY(10px) scaleY(0.6); } to { opacity: 1; transform: none; } }
+@keyframes level { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(var(--s, 0.55)); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.hero-copy > * { animation: rise 560ms var(--ease-out) both; }
+.hero-copy > *:nth-child(2) { animation-delay: 70ms; }
+.hero-copy > *:nth-child(3) { animation-delay: 140ms; }
+.hero-copy > *:nth-child(4) { animation-delay: 200ms; }
+.hero-visual .phone { animation: rise 560ms var(--ease-out) 120ms both; }
+.brand .m1 { animation: assemble 560ms var(--ease-out) both; transform-box: fill-box; transform-origin: bottom; }
+.brand .m2 { animation: assemble 560ms var(--ease-out) 70ms both; transform-box: fill-box; transform-origin: bottom; }
+.brand .m3 { animation: assemble 560ms var(--ease-out) 140ms both; transform-box: fill-box; transform-origin: bottom; }
+.meter i { animation: level 1.4s linear infinite; animation-delay: calc(var(--d) * -1ms); }
+.rec-dot { animation: blink 1.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+  .hero-copy > *, .hero-visual .phone { animation: rise 200ms ease both !important; }
+  .hero-copy > *, .hero-visual .phone { transform: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .hero .wrap, .promise .wrap, .principles .wrap, .privacy-band { grid-template-columns: 1fr; }
+  .hero .lede { max-width: 40ch; }
+  .steps { grid-template-columns: 1fr; gap: 72px; }
+  .step-copy { align-self: center; text-align: center; align-items: center; }
+  .for-grid { grid-template-columns: 1fr; }
+  .privacy-band { padding: 40px 28px; }
+}
+@media (max-width: 560px) {
+  .nav-links a:not(.btn) { display: none; }
+  .hero { padding-block: 16px 64px; }
+  section { padding-block: 72px; }
+  .section-head { margin-bottom: 40px; }
+  .not-list li { grid-template-columns: 1fr; gap: 4px; }
+  .cta-row .btn { flex: 1 1 100%; }
+  .final { padding-block: 88px; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Intraflect home">
+      <svg width="22" height="30" viewBox="0 0 22 30" aria-hidden="true">
+        <circle class="m1" cx="4.5" cy="4.5" r="4.5" fill="currentColor"/>
+        <rect class="m2" x="0" y="11" width="9" height="17" rx="4.5" fill="currentColor"/>
+        <rect class="m3" x="13" y="0" width="9" height="30" rx="4.5" fill="currentColor"/>
+      </svg>
+      intraflect
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a class="btn btn-primary btn-small js-get" href="#beta">Join the beta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title" style="padding-top:40px">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pill" aria-hidden="true"></span>A daily encounter with yourself</p>
+        <h1 id="hero-title">A few minutes to hear yourself.</h1>
+        <p class="lede">Speak freely about what's on your mind. <strong>Intraflect listens, reflects back what it heard, and gives you one question to carry into tomorrow.</strong> Over time, you'll see how you're changing.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary js-get" href="#beta">
+            <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><rect x="4" y="0" width="8" height="12" rx="4" fill="currentColor"/><path d="M1 8.5a7 7 0 0 0 14 0M8 15.5V18" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+            <span class="js-get-label">Join the beta</span>
+          </a>
+          <a class="btn btn-ghost" href="#how">See how it works</a>
+        </div>
+        <p class="cta-note js-get-note">Free for iPhone · Beta starts late December</p>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Screen: Today / Home -->
+        <div class="phone" role="img" aria-label="The Today screen: yesterday's photo, yesterday's question, and a button to start today's check-in.">
+          <div class="screen">
+            <div class="s-top"><span>Tuesday, 10 November</span></div>
+            <div class="s-stack" style="margin-top:14px">
+              <div class="s-photo"><div class="head"></div><div class="shoulders"></div><span class="tag">You, yesterday</span></div>
+              <div class="s-stack" style="gap:6px">
+                <span class="s-label s-blue">Yesterday's question</span>
+                <p class="s-prompt">What would you say to her if the deadline weren't there?</p>
+              </div>
+            </div>
+            <div class="s-btn">Start today's check-in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMISE -->
+  <section class="promise" aria-labelledby="promise-title">
+    <div class="wrap">
+      <h2 id="promise-title">Journaling asks you to write. Most of us think out loud.</h2>
+      <div class="promise-body">
+        <p>Blank pages, prompts and streaks turn reflection into homework. So most journals end up abandoned by February.</p>
+        <p><strong>Intraflect is quieter than that.</strong> You talk for two to four minutes, the way you'd talk to a friend on a walk. No typing, no performing, nothing to keep up.</p>
+        <p>What you get back is short and specific: what you actually said, noticed, and one question worth sleeping on. <strong>You stay the main character.</strong> The AI just helps you listen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-title">Speak. Reflect. Return.</h2>
+        <p>Three steps, a few minutes a day, whenever you feel like it. Skip a day and nothing breaks.</p>
+      </div>
+
+      <div class="steps">
+        <!-- 1 Speak -->
+        <article class="step">
+          <div class="phone" role="img" aria-label="Recording screen: a live microphone dot, a timer at 2:14, a level meter, and the prompt for today.">
+            <div class="screen">
+              <div class="s-top">
+                <span class="s-close" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                <span class="rec-head"><span class="rec-dot"></span>Recording</span>
+                <span style="width:28px"></span>
+              </div>
+              <div class="rec-time">2:14</div>
+              <div class="meter" aria-hidden="true">
+                <i style="--h:18;--d:100;--s:.6"></i><i style="--h:34;--d:600;--s:.5"></i><i style="--h:58;--d:300;--s:.45"></i><i style="--h:80;--d:900;--s:.6"></i><i style="--h:46;--d:200;--s:.4"></i><i style="--h:68;--d:700;--s:.55"></i><i style="--h:88;--d:400;--s:.5"></i><i style="--h:52;--d:1100;--s:.6"></i><i style="--h:30;--d:500;--s:.5"></i><i style="--h:44;--d:800;--s:.45"></i><i style="--h:22;--d:0;--s:.6"></i>
+              </div>
+              <p class="rec-prompt">What's taking up the most space in your head today?</p>
+              <div class="rec-controls">
+                <span class="rec-ctrl" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><rect x="1" y="1" width="3.5" height="12" rx="1.5" fill="currentColor"/><rect x="7.5" y="1" width="3.5" height="12" rx="1.5" fill="currentColor"/></svg></span>
+                <span class="rec-finish" aria-hidden="true"><span></span></span>
+                <span class="rec-ctrl" aria-hidden="true" style="visibility:hidden"></span>
+              </div>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-num"><span class="bar" aria-hidden="true"><i class="on"></i><i></i><i></i></span>Speak</span>
+            <h3>Say what's on your mind</h3>
+            <p>Open the app, see yesterday's photo and a gentle prompt, and talk. Pause when you need to. There's no time limit and no right answer.</p>
+          </div>
+        </article>
+
+        <!-- 2 Reflect -->
+        <article class="step">
+          <div class="phone" role="img" aria-label="Reflection screen: a short observation about what was said, and a blue card with one question for tomorrow.">
+            <div class="screen">
+              <div class="s-top"><span>Your reflection</span><span>Today</span></div>
+              <div class="s-stack" style="margin-top:18px">
+                <div class="s-card">
+                  <span class="s-label">What I heard</span>
+                  <p style="font-size:14px;line-height:20px">You came back to the call with your sister twice, both times right after talking about work. It sounded like the call stayed with you more than the deadline did.</p>
+                </div>
+                <div class="s-qcard">
+                  <span class="s-label s-blue">For tomorrow</span>
+                  <p>What would you say to her if the deadline weren't there?</p>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <span class="s-card" style="flex:1;align-items:center;padding:10px;border-radius:99px;font-weight:500">Edit</span>
+                  <span class="s-card" style="flex:1;align-items:center;padding:10px;border-radius:99px;font-weight:500">Dismiss</span>
+                </div>
+              </div>
+              <div class="s-btn">Keep this question</div>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-num"><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>Reflect</span>
+            <h3>Hear it back, briefly</h3>
+            <p>A short reflection grounded in your own words, never advice or a diagnosis. Then one question to carry into tomorrow. Keep it, edit it, or let it go.</p>
+          </div>
+        </article>
+
+        <!-- 3 Return -->
+        <article class="step">
+          <div class="phone" role="img" aria-label="Journey screen: this week's recurring themes as lime chips, and a list of past check-ins with photos.">
+            <div class="screen">
+              <p class="j-title">Journey</p>
+              <div class="s-stack" style="margin-top:14px;gap:10px">
+                <div class="j-week">
+                  <span class="s-label">This week kept coming back to</span>
+                  <div class="chips"><span class="chip">your sister</span><span class="chip">rest</span><span class="chip">saying no</span></div>
+                </div>
+                <div>
+                  <div class="j-row"><span class="j-thumb"></span><span class="j-text"><b>Monday</b><span>"I think I'm tired of being the reliable one"</span></span></div>
+                  <div class="j-row"><span class="j-thumb b"></span><span class="j-text"><b>Sunday</b><span>"The walk helped more than I expected"</span></span></div>
+                  <div class="j-row"><span class="j-thumb c"></span><span class="j-text"><b>Friday</b><span>"Finally said no to the extra project"</span></span></div>
+                </div>
+              </div>
+              <div class="tabbar"><span>Today</span><span class="on">Journey</span><span>You</span></div>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-num"><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span>Return</span>
+            <h3>Meet yesterday's you</h3>
+            <p>Take an optional photo and it greets you at your next check-in. Your archive keeps your voice, your words and your face, so you can notice what's changing.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section aria-labelledby="for-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="for-title">Made for people who want to understand themselves, not optimise themselves.</h2>
+      </div>
+      <div class="for-grid">
+        <div class="for-card">
+          <h3>You've started journals before</h3>
+          <p>And stopped. Talking takes less effort than writing, and there's no streak to break, so it's easier to come back.</p>
+        </div>
+        <div class="for-card">
+          <h3>You think out loud</h3>
+          <p>You work things out by saying them, on walks, in voice notes, to whoever will listen. Now you can listen to yourself.</p>
+        </div>
+        <div class="for-card">
+          <h3>You're in a season of change</h3>
+          <p>A new job, a move, a loss, a decision. Hearing how you sounded last month shows you how far you've come.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="principles" aria-labelledby="not-title" style="padding-top:24px">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:0">
+        <h2 id="not-title">Quiet on purpose.</h2>
+        <p>Intraflect leaves out the things that turn reflection into a chore.</p>
+      </div>
+      <ul class="not-list">
+        <li><b>Streaks</b><span>Skip a day, a week, a month. You're always welcome back.</span></li>
+        <li><b>A chatbot</b><span>No conversation to keep up. You speak, it reflects once, and you're done.</span></li>
+        <li><b>Advice</b><span>It reflects what you said and asks rather than assumes. It never tells you what to do.</span></li>
+        <li><b>Mood scores</b><span>No charts rating your feelings. Just your own words, over time.</span></li>
+        <li><b>Face analysis</b><span>Your photo is a record of you on that day. It's never analysed.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" aria-labelledby="privacy-title" style="padding-top:24px">
+    <div class="wrap">
+      <div class="privacy-band">
+        <div>
+          <p class="saved"><svg width="12" height="14" viewBox="0 0 14 16" aria-hidden="true"><rect x="1" y="7" width="12" height="9" rx="2" fill="currentColor"/><path d="M4 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2" fill="none"/></svg>Saved and private</p>
+          <h2 id="privacy-title">What you say here stays yours.</h2>
+        </div>
+        <ul class="privacy-list">
+          <li>Your recordings, words and photos are private. They're never sold, shared or used for advertising.</li>
+          <li>Audio is sent to OpenAI only to transcribe it and write your reflection, and it isn't used to train AI models.</li>
+          <li>Photos never leave for any AI service.</li>
+          <li>Export everything, or delete any entry or your whole account, from inside the app.</li>
+          <li><a href="privacy/">Read the full privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="beta" aria-labelledby="final-title">
+    <div class="wrap">
+      <svg width="26" height="36" viewBox="0 0 22 30" aria-hidden="true"><circle cx="4.5" cy="4.5" r="4.5" fill="currentColor"/><rect x="0" y="11" width="9" height="17" rx="4.5" fill="currentColor"/><rect x="13" y="0" width="9" height="30" rx="4.5" fill="currentColor"/></svg>
+      <h2 id="final-title">Start hearing yourself this winter.</h2>
+      <p class="js-final-copy">We're inviting a small group to try Intraflect for two weeks from late December. It's free, on iPhone, and your honest feedback shapes what it becomes.</p>
+      <div class="cta-row">
+        <!-- ↓ Replace this href with your signup form link -->
+        <a class="btn btn-primary js-get js-signup" href="https://forms.example.com/intraflect-beta">
+          <span class="js-get-label">Apply for the beta</span>
+        </a>
+      </div>
+      <p class="cta-note">Takes two minutes · iPhone only</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Intraflect</span>
+    <nav aria-label="Footer">
+      <a href="privacy/">Privacy policy</a>
+      <a href="mailto:hello@intraflect.app">hello@intraflect.app</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  /* When the app is live, paste its App Store link here.
+     Every "Join the beta" button then becomes "Download on the App Store". */
+  var APP_STORE_URL = "";
+
+  if (APP_STORE_URL) {
+    document.querySelectorAll(".js-get").forEach(function (a) {
+      a.href = APP_STORE_URL;
+      var label = a.querySelector(".js-get-label");
+      if (label) label.textContent = "Download on the App Store";
+      else a.textContent = "Download";
+    });
+    document.querySelectorAll(".js-get-note").forEach(function (n) { n.textContent = "Free for iPhone"; });
+    var copy = document.querySelector(".js-final-copy");
+    if (copy) copy.textContent = "A few minutes a day, whenever you want them. Free on iPhone.";
+  } else {
+    /* During the beta, the top buttons scroll to the signup section. */
+    document.querySelectorAll(".js-get:not(.js-signup)").forEach(function (a) { a.href = "#beta"; });
+  }
+</script>
+</body>
+</html>
