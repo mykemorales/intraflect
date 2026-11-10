@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy policy · Intraflect</title>
+<meta name="description" content="How Intraflect handles your recordings, transcripts, reflections and photos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23252322'/%3E%3Ccircle cx='12' cy='9.5' r='2.5' fill='%23F1EED6'/%3E%3Crect x='9.5' y='13.5' width='5' height='10' rx='2.5' fill='%23F1EED6'/%3E%3Crect x='17.5' y='7' width='5' height='18' rx='2.5' fill='%23F1EED6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one quiet reading column, like an entry in the app. Neutrals carry it; green = private, used once. */
+:root {
+  --paper: #FBFBFB;
+  --ink: #252322;
+  --muted: #6B6764;
+  --rule: #E6E3DF;
+  --soft: #F2F0EC;
+  --private: #399A26;
+  --fill: #FFF4C2;
+  --blue: #455DE8;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #252322; --ink: #F1EED6; --muted: #B3AE98; --rule: #3A3735; --soft: #2E2B29; --private: #5CC046; --fill: #4A4320;
+    color-scheme: dark;
+  }
+}
+body {
+  margin: 0;
+  background: var(--paper); color: var(--ink); font-family: var(--font);
+  font-size: 17px; line-height: 25px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 48px 72px;
+}
+main { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+header { display: flex; flex-direction: column; gap: 20px; }
+.mark { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.2px; }
+h1 { font-size: 34px; line-height: 40px; letter-spacing: -0.9px; font-weight: 600; margin: 0; text-wrap: balance; }
+.meta { color: var(--muted); font-size: 15px; line-height: 22px; margin: 0; }
+.lede { font-size: 19px; line-height: 29px; margin: 0; }
+.summary { background: var(--soft); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.summary h2 { margin: 0; font-size: 15px; line-height: 22px; font-weight: 600; color: var(--private); display: flex; align-items: center; gap: 8px; }
+.summary ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+section { display: flex; flex-direction: column; gap: 12px; }
+h2 { font-size: 22px; line-height: 28px; letter-spacing: -0.3px; font-weight: 600; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 22px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; font-size: 13px; line-height: 18px; color: var(--muted); }
+td:first-child { font-weight: 500; white-space: nowrap; }
+.fill { background: var(--fill); border-radius: 6px; padding: 0 5px; font-weight: 500; }
+footer { color: var(--muted); font-size: 13px; line-height: 18px; border-top: 1px solid var(--rule); padding-top: 20px; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+* { box-sizing: border-box; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.mark { text-decoration: none; }
+.back { font-size: 15px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="top">
+    <a class="mark" href="../" aria-label="Intraflect home">
+      <svg width="20" height="28" viewBox="0 0 20 28" aria-hidden="true"><circle cx="4" cy="4" r="4" fill="currentColor"/><rect x="0" y="10" width="8" height="16" rx="4" fill="currentColor"/><rect x="12" y="0" width="8" height="28" rx="4" fill="currentColor"/></svg>
+      intraflect
+    </a>
+    <a class="back" href="../">Back to home</a>
+    </div>
+    <h1>Privacy policy</h1>
+    <p class="meta">Beta version · Effective <span class="fill">[date]</span></p>
+    <p class="lede">Intraflect is a place to hear yourself. What you say here is personal, so this page explains plainly what we keep, where it goes, and how you remove it.</p>
+  </header>
+
+  <div class="summary">
+    <h2><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><rect x="1" y="7" width="12" height="9" rx="2" fill="currentColor"/><path d="M4 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2" fill="none"/></svg>The short version</h2>
+    <ul>
+      <li>Your recordings, words and photos are private to you. We don't sell them, show them to anyone, or use them for advertising.</li>
+      <li>Your voice recording and its transcript are sent to OpenAI only to write your transcript and reflection. OpenAI doesn't use them to train its models.</li>
+      <li>Your photos never go to an AI service and are never analysed.</li>
+      <li>You can delete any entry, or everything, from inside the app at any time.</li>
+    </ul>
+  </div>
+
+  <section>
+    <h2>Who is responsible</h2>
+    <p>Intraflect is made by <span class="fill">[your full name]</span>, <span class="fill">[business address]</span>, Czech Republic, Business ID (IČO) <span class="fill">[IČO]</span>. That's who decides how your data is used (the "controller" under GDPR). You can reach us at <a href="mailto:hello@intraflect.app">hello@intraflect.app</a>.</p>
+  </section>
+
+  <section>
+    <h2>What we collect</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>What</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Voice recordings</td><td>So you can play back your check-ins and so they can be transcribed.</td></tr>
+          <tr><td>Transcripts</td><td>To show your words and to write the reflection and the question for tomorrow.</td></tr>
+          <tr><td>Reflections and questions</td><td>To show them to you, and to build your weekly reflection.</td></tr>
+          <tr><td>Photos (optional)</td><td>To show yesterday's photo at your next check-in. Skippable, and you can turn it off.</td></tr>
+          <tr><td>Account ID</td><td>An anonymous identifier created on first launch, so your entries stay yours. We don't ask for your name or email in the app.</td></tr>
+          <tr><td>Crash reports</td><td>Technical details when the app crashes (device model, iOS version, the error), so we can fix it. They don't contain your recordings or words.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>We don't use advertising or tracking tools, and we don't track you across other apps or websites.</p>
+  </section>
+
+  <section>
+    <h2>Who processes it for us</h2>
+    <ul>
+      <li><strong>Supabase</strong> stores your recordings, photos and entries in private storage, in <span class="fill">[region, e.g. the EU (Frankfurt)]</span>. Only your account can access them.</li>
+      <li><strong>OpenAI</strong> transcribes your recording and writes your reflection. It doesn't keep the audio after transcribing it. The transcript sent for the reflection may be kept by OpenAI for up to 30 days to detect misuse, then deleted. OpenAI doesn't use either to train its models.</li>
+      <li><strong>Sentry</strong> receives crash reports.</li>
+      <li><strong>Apple TestFlight</strong> handles beta installation and any feedback you send through it, under Apple's own privacy policy.</li>
+    </ul>
+    <p>OpenAI and Sentry are based in the United States. Transfers there are covered by the EU–US Data Privacy Framework or the European Commission's standard contractual clauses.</p>
+  </section>
+
+  <section>
+    <h2>Why we're allowed to use it</h2>
+    <p>We process your data to provide the app you asked for (GDPR Article 6(1)(b)). Because what you say can touch on your health or other sensitive parts of your life, we also ask for your explicit consent before your first check-in (Article 9(2)(a)). You can withdraw it at any time by deleting your account.</p>
+  </section>
+
+  <section>
+    <h2>How long we keep it</h2>
+    <p>Your entries stay until you delete them. When you delete an entry or your account, it's removed from the app straight away and from our backups within 30 days.</p>
+    <p>When the beta ends, we'll tell you whether your data can carry over to the public version. If you don't want it to, we'll delete it.</p>
+  </section>
+
+  <section>
+    <h2>Your rights</h2>
+    <ul>
+      <li><strong>Delete</strong> any entry, recording or photo, or your whole account, in the app under You → Privacy &amp; data.</li>
+      <li><strong>Export</strong> everything (audio, photos, transcripts and reflections) from the same place.</li>
+      <li><strong>Access, correct or restrict</strong> your data, or <strong>object</strong> to how we use it, by writing to us.</li>
+    </ul>
+    <p>If you think we've handled your data wrongly, you can complain to the Czech Office for Personal Data Protection (ÚOOÚ) at uoou.gov.cz, or to the data protection authority where you live.</p>
+  </section>
+
+  <section>
+    <h2>What Intraflect is not</h2>
+    <p>Intraflect is a reflection tool. It isn't therapy, medical advice or a crisis service. If you're struggling, please talk to someone you trust or a professional. Intraflect is for people aged 16 and over.</p>
+  </section>
+
+  <section>
+    <h2>Changes</h2>
+    <p>If we change this policy, we'll update the date at the top and tell you in the app before the change applies to you.</p>
+  </section>
+
+  <footer>Intraflect · Beta · Questions about privacy: <a href="mailto:hello@intraflect.app">hello@intraflect.app</a></footer>
+</main>
+</body>
+</html>
